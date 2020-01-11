@@ -8,10 +8,16 @@ public class AxisButton extends Button {
 
     Joystick j;
     int a;
+    double d;
 
     public AxisButton(Joystick joystick, int axis) {
         j = joystick;
         a = axis;
+    }
+
+    public AxisButton(Joystick joystick, double axis) {
+        j = joystick;
+        d = axis;
     }
 
     @Override
