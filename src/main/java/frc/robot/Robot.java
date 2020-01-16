@@ -32,7 +32,7 @@ public class Robot extends TimedRobot {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
     try {
-      robotContainer = new RobotContainer();
+      robotContainer = RobotContainer.getInstance();
     } catch(Exception ex) {
       System.out.println("Unable to boot! Error: " + ex.toString());
     }

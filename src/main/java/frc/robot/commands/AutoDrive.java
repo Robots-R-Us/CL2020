@@ -24,18 +24,35 @@ public class AutoDrive extends CommandBase {
     public void execute() {
         switch(stage) {
             case 0: {
-                driveBase.pidDrive(-.7, -.7);
+                driveBase.pidDrive(.7, -.7);
                 if(driveBase.getAvgEncoderDistance() >= 3) {
                     driveBase.stop();
-                    stage = 1;
+                    stage++;
                 }
                 break;
             }
             case 1: {
-                driveBase.pidDrive(.7, -.7);
-                if(driveBase.getLeftEncoderDistance() >= 1) {
+                driveBase.pidDrive(.7, .7);
+                if(driveBase.getRightEncoderDistance() >= 1) {
                     driveBase.stop();
-                    stage = 2;
+                    stage++;
+                }
+                break;
+            }
+            case 2: {
+                driveBase.pidDrive(.7, -.7);
+                if(driveBase.getAvgEncoderDistance() >= 1) {
+                    driveBase.stop();
+                    stage++;
+                }
+                break;
+            }
+
+            case 3: {
+                driveBase.pidDrive(.7, .7);
+                if(driveBase.getRightEncoderDistance() >= 1) {
+                    driveBase.stop();
+                    stage++;
                     isFinished = true;
                 }
                 break;

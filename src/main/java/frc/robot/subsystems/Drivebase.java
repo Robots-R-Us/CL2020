@@ -5,7 +5,6 @@ import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
-import util.GameData;
 
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
@@ -34,23 +33,26 @@ public class Drivebase extends SubsystemBase {
         leftEncoder.setDistancePerPulse(Constants.DISTANCE_PER_PULSE);
         rightEncoder.setDistancePerPulse(Constants.DISTANCE_PER_PULSE);
 
+        driveBase.setSafetyEnabled(true);
+        driveBase.setExpiration(.1);
+
         this.setBrakeMode();
     }
 
     @Override
     public void periodic() {
-      if(GameData.isTestMode()) {
-        System.out.println("L_ENCODER: " + leftEncoder.getDistance() + "R_ENCODER: " + rightEncoder.getDistance());        
-      }
     }
 
     public void drive(double speed, double rotation) {
+        System.out.println("L_ENCODER: " + leftEncoder.getDistance() + "R_ENCODER: " + rightEncoder.getDistance());
+        //System.out.println("L: " + leftTank.get() + ", R: " + rightTank.get());
         driveBase.arcadeDrive(speed, rotation);
     }
 
     public void pidDrive(double leftSpeed, double rightSpeed) {
-      double heading_error = getLeftEncoderDistance() - getRightEncoderDistance();
-      driveBase.tankDrive(leftSpeed + Constants.kP * heading_error, rightSpeed - Constants.kP * heading_error);
+        System.out.println("L_ENCODER: " + leftEncoder.getDistance() + "R_ENCODER: " + rightEncoder.getDistance());
+        double heading_error = getLeftEncoderDistance() - getRightEncoderDistance();
+        driveBase.tankDrive(leftSpeed + Constants.kP * heading_error, rightSpeed - Constants.kP * heading_error);
     }
 
     public void stop() {
