@@ -18,11 +18,11 @@ public class Intake extends SubsystemBase {
     }
 
     public void in() {
-        intakeMotor.set(1.0); // 100% output
+        intakeMotor.set(-.33); // 33% output
     }
 
     public void out() {
-        intakeMotor.set(-1.0);
+        intakeMotor.set(.33);
     }
 
     public void stop() {

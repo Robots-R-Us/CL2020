@@ -30,8 +30,8 @@ public class Drivebase extends SubsystemBase {
         leftEncoder = new Encoder(Constants.LEFT_DRIVE_ENCODER_1, Constants.LEFT_DRIVE_ENCODER_2);
         rightEncoder = new Encoder(Constants.RIGHT_DRIVE_ENCODER_1, Constants.RIGHT_DRIVE_ENCODER_2);
 
-        leftEncoder.setDistancePerPulse(Constants.DISTANCE_PER_PULSE);
-        rightEncoder.setDistancePerPulse(Constants.DISTANCE_PER_PULSE);
+        leftEncoder.setDistancePerPulse(Constants.Drivebase.DISTANCE_PER_PULSE);
+        rightEncoder.setDistancePerPulse(Constants.Drivebase.DISTANCE_PER_PULSE);
 
         driveBase.setSafetyEnabled(true);
         driveBase.setExpiration(.1);
@@ -52,7 +52,7 @@ public class Drivebase extends SubsystemBase {
     public void pidDrive(double leftSpeed, double rightSpeed) {
         System.out.println("L_ENCODER: " + leftEncoder.getDistance() + "R_ENCODER: " + rightEncoder.getDistance());
         double heading_error = getLeftEncoderDistance() - getRightEncoderDistance();
-        driveBase.tankDrive(leftSpeed + Constants.kP * heading_error, rightSpeed - Constants.kP * heading_error);
+        driveBase.tankDrive(leftSpeed + Constants.Drivebase.kP * heading_error, rightSpeed - Constants.Drivebase.kP * heading_error);
     }
 
     public void stop() {

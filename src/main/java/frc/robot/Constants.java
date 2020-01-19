@@ -38,31 +38,51 @@ public final class Constants {
     public static int LS_PUSH = 9;
     public static int RS_PUSH = 10;
 
-    public static int FRONT_LEFT_MOTOR = 2;
+    public static int FRONT_LEFT_MOTOR = 1;
     public static int FRONT_RIGHT_MOTOR = 4;
-    public static int REAR_LEFT_MOTOR = 1;
+    public static int REAR_LEFT_MOTOR = 2;
     public static int REAR_RIGHT_MOTOR = 3;
 
-    public static int INTAKE_MOTOR = 5;
-    public static int BeltLoopMotor= 6;
-    public static int Shooter_Motor = 7;
-
+    public static int SHOOTER_MOTOR = 10;
+    public static int BELT_LOOP_MOTOR = 11;
+    public static int INTAKE_MOTOR = 12;
     
     public static int LEFT_DRIVE_ENCODER_1 = 0;
     public static int LEFT_DRIVE_ENCODER_2 = 1;
     public static int RIGHT_DRIVE_ENCODER_1 = 2;
     public static int RIGHT_DRIVE_ENCODER_2 = 3;
 
-    public static int PULSE_PER_REVOLUTION = 360;
-    public static double DRIVE_GEAR_RATIO = 5.95/1.0;
-    public static double ENCODER_GEAR_RATIO = 1.0;
-    public static double FUDGE_FACTOR = 0.5;
-    public static double DRIVE_WHEEL_DIAMETER = 6; // in inches
-    public static double DISTANCE_PER_PULSE = (Math.PI * DRIVE_WHEEL_DIAMETER/ PULSE_PER_REVOLUTION /
-        ENCODER_GEAR_RATIO / DRIVE_GEAR_RATIO) * FUDGE_FACTOR;
+    // we put encoder declarations in their own class
+    public static class Drivebase {
 
-    public static double kP = 1.0;
-    public static double kI = 0.0;
-    public static double kD = 0.0;
+            public static double kP = 1.0;
+            public static double kI = 0.0;
+            public static double kD = 0.0;
+
+            public static int PULSE_PER_REVOLUTION = 360;
+            public static double DRIVE_GEAR_RATIO = 5.95/1.0;
+            public static double ENCODER_GEAR_RATIO = 1.0;
+            public static double FUDGE_FACTOR = 0.5;
+            public static double DRIVE_WHEEL_DIAMETER = 6; // in inches
+            public static double DISTANCE_PER_PULSE = (Math.PI * DRIVE_WHEEL_DIAMETER/ PULSE_PER_REVOLUTION /
+                                                        ENCODER_GEAR_RATIO / DRIVE_GEAR_RATIO) * FUDGE_FACTOR;
+    
+        }
+
+    public static class Shooter {
+
+        public static double kP = 1.0; // need to measure
+        public static double kI = 0.0; // need to measure
+        public static double kD = 0.0; // need to measure
+
+        public static double FREE_RPM = 5000; // need to measure
+        public static double TARGET_RPM = 4000; // need to measure
+        public static double RPM_TOLERENCE = 50;
+
+        public static int DISTANCE_PER_PULSE = 1000; // need to measure
+        public static double INCREMENTAL_VOLTS = 0.5;
+        public static double VOLT_PER_ROTATION = 12.0 / FREE_RPM;
+
+    }
 
 }

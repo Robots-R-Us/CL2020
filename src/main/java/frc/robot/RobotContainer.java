@@ -7,7 +7,8 @@
 
 package frc.robot;
 
-import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.AutoDrive;
 import frc.robot.commands.beltloop.BeltLoopIn;
 import frc.robot.commands.beltloop.BeltLoopOut;
@@ -19,9 +20,10 @@ import frc.robot.subsystems.BeltLoop;
 import frc.robot.subsystems.Drivebase;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Shooter;
-import util.controls.AxisButton;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.RunCommand;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 /**
  * This class is where the bulk of the robot should be declared.  Since Command-based is a
@@ -47,25 +49,50 @@ public class RobotContainer {
   private final ShooterIn shooterInCommand = new ShooterIn(shooterSystem);
   private final ShooterOut shooterOutCommand = new ShooterOut(shooterSystem);
 
+  private final ParallelCommandGroup intakeAllCommand = new ParallelCommandGroup(intakeInCommand, beltLoopInCommand);
+  private final ParallelCommandGroup outtakeAllCommand = new ParallelCommandGroup(intakeOutCommand, beltLoopOutCommand);
+
   // Joysticks and etc.
-  private Joystick driverController = new Joystick(Constants.DRIVER_CONTROLLER);
+  private XboxController driverController = new XboxController(Constants.DRIVER_CONTROLLER);
 
   /**
    * The container for the robot.  Contains subsystems, OI devices, and commands.
    */
   public RobotContainer() {
+    // Add data to the dashboard
+    this.populateDashboard();
+
     // Configure the button bindings
-    configureButtonBindings();
+    this.configureButtonBindings();
 
     // Set default commands
-    driveBaseSystem.setDefaultCommand(new RunCommand(() -> driveBaseSystem.drive(getDriverAxis(Constants.LEFT_Y), getDriverAxis(Constants.LEFT_X)), driveBaseSystem));
+    driveBaseSystem.setDefaultCommand(new RunCommand(() -> driveBaseSystem.drive(-getDriverAxis(Constants.LEFT_Y), getDriverAxis(Constants.LEFT_X)), driveBaseSystem));
+  }
+
+  private void populateDashboard() {
+    //SmartDashboard.putData(shooterSystem.getController());
+    SmartDashboard.putNumber("DB Encoder Dist.:", driveBaseSystem.getAvgEncoderDistance());
+  }
+
+  public void printShooterPosition() {
+    System.out.println("Pos: " + shooterSystem.getPosition() + ", Vel: " + shooterSystem.getVelocity());
   }
 
   private void configureButtonBindings() {
-    new AxisButton(driverController, getDriverAxis(Constants.RIGHT_TRIGGER)).whenPressed(intakeInCommand);
+    new JoystickButton(driverController, Constants.RIGHT_SHOULDER)
+        .whileHeld(intakeAllCommand)
+        .whenReleased(() -> intakeSystem.stop())
+        .whenReleased(() -> beltLoopSystem.stop());
 
+    new JoystickButton(driverController, Constants.LEFT_SHOULDER)
+        .whileHeld(outtakeAllCommand)
+        .whenReleased(() -> intakeSystem.stop())
+        .whenReleased(() -> beltLoopSystem.stop());
+
+    new JoystickButton(driverController, Constants.B_BUTTON)
+        .whileHeld(shooterOutCommand)
+        .whenReleased(() -> shooterSystem.stop());
   }
-
 
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
