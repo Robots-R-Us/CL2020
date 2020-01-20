@@ -14,11 +14,13 @@ import frc.robot.commands.beltloop.BeltLoopIn;
 import frc.robot.commands.beltloop.BeltLoopOut;
 import frc.robot.commands.intake.IntakeIn;
 import frc.robot.commands.intake.IntakeOut;
+import frc.robot.commands.sensors.IntakeSensors;
 import frc.robot.commands.shooter.ShooterIn;
 import frc.robot.commands.shooter.ShooterOut;
 import frc.robot.subsystems.BeltLoop;
 import frc.robot.subsystems.Drivebase;
 import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.Sensors;
 import frc.robot.subsystems.Shooter;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
@@ -39,6 +41,7 @@ public class RobotContainer {
   private final Intake intakeSystem = new Intake();
   private final BeltLoop beltLoopSystem = new BeltLoop();
   private final Shooter shooterSystem = new Shooter();
+  private final Sensors sensorsSystem = new Sensors();
 
   // Robot Commands
   private final AutoDrive autoDriveCommand = new AutoDrive(driveBaseSystem);
@@ -48,6 +51,7 @@ public class RobotContainer {
   private final BeltLoopOut beltLoopOutCommand = new BeltLoopOut(beltLoopSystem);
   private final ShooterIn shooterInCommand = new ShooterIn(shooterSystem);
   private final ShooterOut shooterOutCommand = new ShooterOut(shooterSystem);
+  private final IntakeSensors intakeSensorsCommand = new IntakeSensors(intakeSystem, beltLoopSystem, sensorsSystem);
 
   private final ParallelCommandGroup intakeAllCommand = new ParallelCommandGroup(intakeInCommand, beltLoopInCommand);
   private final ParallelCommandGroup outtakeAllCommand = new ParallelCommandGroup(intakeOutCommand, beltLoopOutCommand);
@@ -69,13 +73,20 @@ public class RobotContainer {
     driveBaseSystem.setDefaultCommand(new RunCommand(() -> driveBaseSystem.drive(-getDriverAxis(Constants.LEFT_Y), getDriverAxis(Constants.LEFT_X)), driveBaseSystem));
   }
 
-  private void populateDashboard() {
+  public void populateDashboard() {
     //SmartDashboard.putData(shooterSystem.getController());
     SmartDashboard.putNumber("DB Encoder Dist.:", driveBaseSystem.getAvgEncoderDistance());
+    SmartDashboard.putBoolean("Intake Sensor:", sensorsSystem.getIntake());
+    SmartDashboard.putBoolean("BeltLoop Sensor:", sensorsSystem.getBeltLoop());
+  }
+
+  public void resetDriveEncoders() {
+    driveBaseSystem.resetEncoders();
   }
 
   public void printShooterPosition() {
-    System.out.println("Pos: " + shooterSystem.getPosition() + ", Vel: " + shooterSystem.getVelocity());
+    //System.out.println("Pos: " + shooterSystem.getPosition() + ", Vel: " + shooterSystem.getVelocity());
+    System.out.println("M: " + driveBaseSystem.getAvgEncoderDistance() + ", L: " + driveBaseSystem.getLeftEncoderDistance() + ", R: " + driveBaseSystem.getRightEncoderDistance());
   }
 
   private void configureButtonBindings() {
@@ -92,6 +103,11 @@ public class RobotContainer {
     new JoystickButton(driverController, Constants.B_BUTTON)
         .whileHeld(shooterOutCommand)
         .whenReleased(() -> shooterSystem.stop());
+
+    new JoystickButton(driverController, Constants.A_BUTTON)
+        .whileHeld(intakeSensorsCommand)
+        .whenReleased(() -> intakeSystem.stop())
+        .whenReleased(() -> beltLoopSystem.stop());
   }
 
   /**

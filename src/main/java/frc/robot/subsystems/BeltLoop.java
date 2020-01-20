@@ -18,11 +18,11 @@ public class BeltLoop extends SubsystemBase{
     }
     
     public void in() {
-        loopMotor.set(-1.0); // 100% output
+        loopMotor.set(-.8); // 100% output
     }
 
     public void out() {
-        loopMotor.set(1.0);
+        loopMotor.set(.8);
     }
 
     public void stop() {

@@ -44,13 +44,11 @@ public class Drivebase extends SubsystemBase {
     }
 
     public void drive(double speed, double rotation) {
-        System.out.println("L_ENCODER: " + leftEncoder.getDistance() + "R_ENCODER: " + rightEncoder.getDistance());
-        //System.out.println("L: " + leftTank.get() + ", R: " + rightTank.get());
+        System.out.println(leftTank.get() + ", " + rightTank.get());
         driveBase.arcadeDrive(speed, rotation);
     }
 
     public void pidDrive(double leftSpeed, double rightSpeed) {
-        System.out.println("L_ENCODER: " + leftEncoder.getDistance() + "R_ENCODER: " + rightEncoder.getDistance());
         double heading_error = getLeftEncoderDistance() - getRightEncoderDistance();
         driveBase.tankDrive(leftSpeed + Constants.Drivebase.kP * heading_error, rightSpeed - Constants.Drivebase.kP * heading_error);
     }
@@ -60,11 +58,11 @@ public class Drivebase extends SubsystemBase {
     }
 
     public double getAvgEncoderDistance() {
-        return (leftEncoder.getDistance() + rightEncoder.getDistance()) / 2;
+        return (getLeftEncoderDistance() + getRightEncoderDistance()) / 2;
     }
 
     public double getLeftEncoderDistance() {
-        return leftEncoder.getDistance();
+        return -leftEncoder.getDistance();
     }
 
     public double getRightEncoderDistance() {

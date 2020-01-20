@@ -18,6 +18,7 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
  * project.
  */
 public class Robot extends TimedRobot {
+  
   private Command m_autonomousCommand;
 
   private RobotContainer robotContainer;
@@ -54,6 +55,8 @@ public class Robot extends TimedRobot {
     // and running subsystem periodic() methods.  This must be called from the robot's periodic
     // block in order for anything in the Command-based framework to work.
     CommandScheduler.getInstance().run();
+    robotContainer.populateDashboard();
+
   }
 
   /**
@@ -87,6 +90,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousPeriodic() {
+    robotContainer.printShooterPosition();
   }
 
   @Override
@@ -99,6 +103,7 @@ public class Robot extends TimedRobot {
       m_autonomousCommand.cancel();
     }
 
+    robotContainer.resetDriveEncoders();
     System.out.println("Ready for operator control!");
     
   }
@@ -108,7 +113,6 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void teleopPeriodic() {
-    robotContainer.printShooterPosition();
   }
 
   @Override
