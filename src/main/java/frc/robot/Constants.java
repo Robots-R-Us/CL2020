@@ -17,43 +17,54 @@ package frc.robot;
  */
 public final class Constants {
 
-    public static int DRIVER_CONTROLLER = 0;
-    public static int OPERATOR_CONTROLLER = 1;
-    public static double AXIS_THRESHOLD = 0.15;
+    public static class Controller {
+
+        public static int DRIVER_CONTROLLER = 0;
+        public static int OPERATOR_CONTROLLER = 1;
+        public static double AXIS_THRESHOLD = 0.15;
     
-    public static int LEFT_X = 0;
-    public static int LEFT_Y = 1;
-    public static int LEFT_TRIGGER = 2;
-    public static int RIGHT_TRIGGER = 3;
-    public static int RIGHT_X = 4;
-    public static int RIGHT_Y = 5;
-    public static int A_BUTTON = 1;
-    public static int B_BUTTON = 2;
-    public static int X_BUTTON = 3;
-    public static int Y_BUTTON = 4;
-    public static int LEFT_SHOULDER = 5;
-    public static int RIGHT_SHOULDER = 6;
-    public static int SELECT_BUTTON = 7;
-    public static int START_BUTTON = 8;
-    public static int LS_PUSH = 9;
-    public static int RS_PUSH = 10;
+        public static int LEFT_X = 0;
+        public static int LEFT_Y = 1;
+        public static int LEFT_TRIGGER = 2;
+        public static int RIGHT_TRIGGER = 3;
+        public static int RIGHT_X = 4;
+        public static int RIGHT_Y = 5;
+        public static int A_BUTTON = 1;
+        public static int B_BUTTON = 2;
+        public static int X_BUTTON = 3;
+        public static int Y_BUTTON = 4;
+        public static int LEFT_SHOULDER = 5;
+        public static int RIGHT_SHOULDER = 6;
+        public static int SELECT_BUTTON = 7;
+        public static int START_BUTTON = 8;
+        public static int LS_PUSH = 9;
+        public static int RS_PUSH = 10;
 
-    public static int FRONT_LEFT_MOTOR = 1;
-    public static int FRONT_RIGHT_MOTOR = 4;
-    public static int REAR_LEFT_MOTOR = 2;
-    public static int REAR_RIGHT_MOTOR = 3;
+    }
 
-    public static int SHOOTER_MOTOR = 10;
-    public static int BELT_LOOP_MOTOR = 11;
-    public static int INTAKE_MOTOR = 12;
-    
-    public static int LEFT_DRIVE_ENCODER_1 = 0;
-    public static int LEFT_DRIVE_ENCODER_2 = 1;
-    public static int RIGHT_DRIVE_ENCODER_1 = 2;
-    public static int RIGHT_DRIVE_ENCODER_2 = 3;
+    public static class Intake {
 
-    // we put encoder declarations in their own class
+        public static int INTAKE_MOTOR = 12;
+
+    }
+
+    public static class BeltLoop {
+
+        public static int BELT_LOOP_MOTOR = 11;
+
+    }
+
     public static class Drivebase {
+
+            public static int FRONT_LEFT_MOTOR = 1;
+            public static int FRONT_RIGHT_MOTOR = 4;
+            public static int REAR_LEFT_MOTOR = 2;
+            public static int REAR_RIGHT_MOTOR = 3;
+
+            public static int LEFT_DRIVE_ENCODER_1 = 0;
+            public static int LEFT_DRIVE_ENCODER_2 = 1;
+            public static int RIGHT_DRIVE_ENCODER_1 = 2;
+            public static int RIGHT_DRIVE_ENCODER_2 = 3;
 
             public static double kP = 1.0;
             public static double kI = 0.0;
@@ -70,6 +81,8 @@ public final class Constants {
         }
 
     public static class Shooter {
+
+        public static int SHOOTER_MOTOR = 10;
 
         public static double kP = 1.0; // need to measure
         public static double kI = 0.0; // need to measure

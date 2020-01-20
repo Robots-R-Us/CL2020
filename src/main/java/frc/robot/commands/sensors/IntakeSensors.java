@@ -41,14 +41,12 @@ public class IntakeSensors extends CommandBase {
 
         while(sensors.getBeltLoop() && sensors.getIntake()) {
             beltLoop.in();
-            System.out.println("loop1");
         }
 
         beltLoop.stop();
 
         while(sensors.getBeltLoop() && !sensors.getIntake()) {
             beltLoop.in();
-            System.out.println("");
         }
         beltLoop.stop();
 

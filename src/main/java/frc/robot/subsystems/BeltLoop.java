@@ -14,7 +14,7 @@ public class BeltLoop extends SubsystemBase{
     }
 
     public BeltLoop() {
-        loopMotor=new WPI_TalonSRX(Constants.BELT_LOOP_MOTOR);
+        loopMotor=new WPI_TalonSRX(Constants.BeltLoop.BELT_LOOP_MOTOR);
     }
     
     public void in() {

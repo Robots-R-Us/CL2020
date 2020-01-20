@@ -17,18 +17,18 @@ public class Drivebase extends SubsystemBase {
     private Encoder leftEncoder, rightEncoder;
 
     public Drivebase() {
-        fLMotor = new WPI_TalonSRX(Constants.FRONT_LEFT_MOTOR);
-        fRMotor = new WPI_TalonSRX(Constants.FRONT_RIGHT_MOTOR);
-        rLMotor = new WPI_TalonSRX(Constants.REAR_LEFT_MOTOR);
-        rRMotor = new WPI_TalonSRX(Constants.REAR_RIGHT_MOTOR);
+        fLMotor = new WPI_TalonSRX(Constants.Drivebase.FRONT_LEFT_MOTOR);
+        fRMotor = new WPI_TalonSRX(Constants.Drivebase.FRONT_RIGHT_MOTOR);
+        rLMotor = new WPI_TalonSRX(Constants.Drivebase.REAR_LEFT_MOTOR);
+        rRMotor = new WPI_TalonSRX(Constants.Drivebase.REAR_RIGHT_MOTOR);
 
         leftTank = new SpeedControllerGroup(fLMotor, rLMotor);
         rightTank = new SpeedControllerGroup(fRMotor, rRMotor);
 
         driveBase = new DifferentialDrive(leftTank, rightTank);
 
-        leftEncoder = new Encoder(Constants.LEFT_DRIVE_ENCODER_1, Constants.LEFT_DRIVE_ENCODER_2);
-        rightEncoder = new Encoder(Constants.RIGHT_DRIVE_ENCODER_1, Constants.RIGHT_DRIVE_ENCODER_2);
+        leftEncoder = new Encoder(Constants.Drivebase.LEFT_DRIVE_ENCODER_1, Constants.Drivebase.LEFT_DRIVE_ENCODER_2);
+        rightEncoder = new Encoder(Constants.Drivebase.RIGHT_DRIVE_ENCODER_1, Constants.Drivebase.RIGHT_DRIVE_ENCODER_2);
 
         leftEncoder.setDistancePerPulse(Constants.Drivebase.DISTANCE_PER_PULSE);
         rightEncoder.setDistancePerPulse(Constants.Drivebase.DISTANCE_PER_PULSE);

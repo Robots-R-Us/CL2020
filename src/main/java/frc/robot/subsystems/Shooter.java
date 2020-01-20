@@ -14,7 +14,7 @@ public class Shooter extends PIDSubsystem {
     
     public Shooter() {
         super(new PIDController(Constants.Shooter.kP, Constants.Shooter.kI, Constants.Shooter.kD));
-        shooterMotor = new WPI_TalonSRX(Constants.SHOOTER_MOTOR);
+        shooterMotor = new WPI_TalonSRX(Constants.Shooter.SHOOTER_MOTOR);
         feedForward = new SimpleMotorFeedforward(Constants.Shooter.INCREMENTAL_VOLTS, Constants.Shooter.VOLT_PER_ROTATION);
 
         getController().setTolerance(Constants.Shooter.RPM_TOLERENCE);

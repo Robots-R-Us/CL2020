@@ -57,7 +57,7 @@ public class RobotContainer {
   private final ParallelCommandGroup outtakeAllCommand = new ParallelCommandGroup(intakeOutCommand, beltLoopOutCommand);
 
   // Joysticks and etc.
-  private XboxController driverController = new XboxController(Constants.DRIVER_CONTROLLER);
+  private XboxController driverController = new XboxController(Constants.Controller.DRIVER_CONTROLLER);
 
   /**
    * The container for the robot.  Contains subsystems, OI devices, and commands.
@@ -70,7 +70,7 @@ public class RobotContainer {
     this.configureButtonBindings();
 
     // Set default commands
-    driveBaseSystem.setDefaultCommand(new RunCommand(() -> driveBaseSystem.drive(-getDriverAxis(Constants.LEFT_Y), getDriverAxis(Constants.LEFT_X)), driveBaseSystem));
+    driveBaseSystem.setDefaultCommand(new RunCommand(() -> driveBaseSystem.drive(-getDriverAxis(Constants.Controller.LEFT_Y), getDriverAxis(Constants.Controller.LEFT_X)), driveBaseSystem));
   }
 
   public void populateDashboard() {
@@ -84,27 +84,27 @@ public class RobotContainer {
     driveBaseSystem.resetEncoders();
   }
 
-  public void printShooterPosition() {
-    //System.out.println("Pos: " + shooterSystem.getPosition() + ", Vel: " + shooterSystem.getVelocity());
+  public void printTestInfo() {
+    System.out.println("Pos: " + shooterSystem.getPosition() + ", Vel: " + shooterSystem.getVelocity());
     System.out.println("M: " + driveBaseSystem.getAvgEncoderDistance() + ", L: " + driveBaseSystem.getLeftEncoderDistance() + ", R: " + driveBaseSystem.getRightEncoderDistance());
   }
 
   private void configureButtonBindings() {
-    new JoystickButton(driverController, Constants.RIGHT_SHOULDER)
+    new JoystickButton(driverController, Constants.Controller.RIGHT_SHOULDER)
         .whileHeld(intakeAllCommand)
         .whenReleased(() -> intakeSystem.stop())
         .whenReleased(() -> beltLoopSystem.stop());
 
-    new JoystickButton(driverController, Constants.LEFT_SHOULDER)
+    new JoystickButton(driverController, Constants.Controller.LEFT_SHOULDER)
         .whileHeld(outtakeAllCommand)
         .whenReleased(() -> intakeSystem.stop())
         .whenReleased(() -> beltLoopSystem.stop());
 
-    new JoystickButton(driverController, Constants.B_BUTTON)
+    new JoystickButton(driverController, Constants.Controller.B_BUTTON)
         .whileHeld(shooterOutCommand)
         .whenReleased(() -> shooterSystem.stop());
 
-    new JoystickButton(driverController, Constants.A_BUTTON)
+    new JoystickButton(driverController, Constants.Controller.A_BUTTON)
         .whileHeld(intakeSensorsCommand)
         .whenReleased(() -> intakeSystem.stop())
         .whenReleased(() -> beltLoopSystem.stop());
