@@ -9,12 +9,13 @@ public class BeltLoop extends SubsystemBase{
 
     WPI_TalonSRX loopMotor;
 
-    @Override
-    public void periodic() {
+    public BeltLoop() {
+        loopMotor = new WPI_TalonSRX(Constants.BeltLoop.BELT_LOOP_MOTOR);
     }
 
-    public BeltLoop() {
-        loopMotor=new WPI_TalonSRX(Constants.BeltLoop.BELT_LOOP_MOTOR);
+    @Override
+    public void periodic() {
+        loopMotor.feed();
     }
     
     public void in() {

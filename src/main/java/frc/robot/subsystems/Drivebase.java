@@ -41,10 +41,10 @@ public class Drivebase extends SubsystemBase {
 
     @Override
     public void periodic() {
+        driveBase.feed();
     }
 
     public void drive(double speed, double rotation) {
-        System.out.println(leftTank.get() + ", " + rightTank.get());
         driveBase.arcadeDrive(speed, rotation);
     }
 

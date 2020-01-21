@@ -1,6 +1,8 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants;
+import frc.robot.RobotContainer;
 import frc.robot.subsystems.Drivebase;
 import util.GameData;
 
@@ -22,9 +24,7 @@ public class Drive extends CommandBase {
 
     @Override
     public void execute() {
-        if(GameData.getMatchTime() <= 0) {
-            isFinished = true;
-        }
+        driveBase.drive(RobotContainer.getInstance().getDriverAxis(Constants.Controller.LEFT_Y), RobotContainer.getInstance().getDriverAxis(Constants.Controller.LEFT_X));
     }
 
     @Override
@@ -34,6 +34,9 @@ public class Drive extends CommandBase {
 
     @Override
     public boolean isFinished() {
+        if(GameData.getMatchTime() <= 0) {
+            isFinished = true;
+        }
         return isFinished;
     }
 }

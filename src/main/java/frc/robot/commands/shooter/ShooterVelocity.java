@@ -5,11 +5,11 @@ import frc.robot.Constants;
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.Shooter;
 
-public class ShooterOut extends CommandBase {
-    
+public class ShooterVelocity extends CommandBase {
+
     private final Shooter shooter;
 
-    public ShooterOut(Shooter _shooter) {
+    public ShooterVelocity(Shooter _shooter) {
         this.shooter = _shooter;
         addRequirements(shooter);
     }
@@ -21,7 +21,7 @@ public class ShooterOut extends CommandBase {
 
     @Override
     public void execute() {
-        shooter.out();
+        shooter.setVelocity();
     }
 
     @Override
@@ -31,7 +31,7 @@ public class ShooterOut extends CommandBase {
 
     @Override
     public boolean isFinished() {
-        if(!RobotContainer.getInstance().getDriverButton(Constants.Controller.X_BUTTON)) {
+        if(!RobotContainer.getInstance().getDriverButton(Constants.Controller.B_BUTTON)) {
             return true;
         } else {
             return false;

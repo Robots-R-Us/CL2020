@@ -7,20 +7,24 @@
 
 package frc.robot;
 
+import util.controls.PIDGains;
+
 /**
- * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
- * constants.  This class should not be used for any other purpose.  All constants should be
- * declared globally (i.e. public static).  Do not put anything functional in this class.
+ * The Constants class provides a convenient place for teams to hold robot-wide
+ * numerical or boolean constants. This class should not be used for any other
+ * purpose. All constants should be declared globally (i.e. public static). Do
+ * not put anything functional in this class.
  *
- * <p>It is advised to statically import this class (or one of its inner classes) wherever the
- * constants are needed, to reduce verbosity.
+ * <p>
+ * It is advised to statically import this class (or one of its inner classes)
+ * wherever the constants are needed, to reduce verbosity.
  */
 public final class Constants {
 
     public static class Controller {
 
         public static int DRIVER_CONTROLLER = 0;
-        public static int OPERATOR_CONTROLLER = 1;
+        //public static int OPERATOR_CONTROLLER = 2;
         public static double AXIS_THRESHOLD = 0.15;
     
         public static int LEFT_X = 0;
@@ -83,19 +87,10 @@ public final class Constants {
     public static class Shooter {
 
         public static int SHOOTER_MOTOR = 10;
-
-        public static double kP = 1.0; // need to measure
-        public static double kI = 0.0; // need to measure
-        public static double kD = 0.0; // need to measure
-
-        public static double FREE_RPM = 5000; // need to measure
-        public static double TARGET_RPM = 4000; // need to measure
-        public static double RPM_TOLERENCE = 50;
-
-        public static int DISTANCE_PER_PULSE = 1000; // need to measure
-        public static double INCREMENTAL_VOLTS = 0.5;
-        public static double VOLT_PER_ROTATION = 12.0 / FREE_RPM;
-
+        public static int PID_ID = 0;
+        public static int TIMEOUT_MS = 30;
+        public static PIDGains PID_GAINS = new PIDGains(0.33, 0.001, 20, 1023.0/7200.0,  300,  1.00);
+        public static int SHOOTER_RPM = 6000;
     }
 
 }

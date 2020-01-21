@@ -1,6 +1,8 @@
 package frc.robot.commands.sensors;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants;
+import frc.robot.RobotContainer;
 import frc.robot.subsystems.BeltLoop;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Sensors;
@@ -20,39 +22,25 @@ public class IntakeSensors extends CommandBase {
 
     @Override
     public void initialize() {
-
         intake.stop();
         beltLoop.stop();
-
     }
 
     @Override
     public void execute() {
-
         intake.in();
-
-        while(!sensors.getBeltLoop() && sensors.getIntake()) {
-            do {
+        while(!sensors.getBeltLoop() && sensors.getIntake() && !sensors.getShooter()) {
+            do{
                 beltLoop.in();
-            } while(!sensors.getBeltLoop());
-         }
-
-        beltLoop.stop();
-
-        while(sensors.getBeltLoop() && sensors.getIntake()) {
-            beltLoop.in();
+            } while(!sensors.getBeltLoop() && !sensors.getShooter());
         }
 
-        beltLoop.stop();
-
-        while(sensors.getBeltLoop() && !sensors.getIntake()) {
+        while(sensors.getBeltLoop() && sensors.getIntake() && !sensors.getShooter()||
+        sensors.getBeltLoop() && !sensors.getIntake() && !sensors.getShooter()) {
             beltLoop.in();
         }
         beltLoop.stop();
-
     }
-
-
 
     @Override
     public void end(boolean interrupted) {
@@ -62,8 +50,11 @@ public class IntakeSensors extends CommandBase {
 
     @Override
     public boolean isFinished() {
-        return false;
-
+        if((!sensors.getBeltLoop() && sensors.getIntake() && sensors.getShooter()) || 
+        (!RobotContainer.getInstance().getDriverButton(Constants.Controller.A_BUTTON))) {
+            return true;
+        } else {
+            return false;
+        }
     }
-
 }

@@ -10,15 +10,16 @@ public class Intake extends SubsystemBase {
     WPI_TalonSRX intakeMotor;
 
     public Intake() {
-        intakeMotor = new WPI_TalonSRX(Constants.INTAKE_MOTOR);
+        intakeMotor = new WPI_TalonSRX(Constants.Intake.INTAKE_MOTOR);
     }
 
     @Override
     public void periodic() {
+        intakeMotor.feed();
     }
 
     public void in() {
-        intakeMotor.set(-.45); // % output
+        intakeMotor.set(-.45); // 45% output
     }
 
     public void out() {
