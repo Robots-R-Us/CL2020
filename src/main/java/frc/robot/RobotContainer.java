@@ -82,6 +82,7 @@ public class RobotContainer {
     SmartDashboard.putBoolean("Intake Sensor:", sensorsSystem.getIntake());
     SmartDashboard.putBoolean("BeltLoop Sensor:", sensorsSystem.getBeltLoop());
     SmartDashboard.putBoolean("Shooter Sensor:", sensorsSystem.getShooter());
+    SmartDashboard.putString("Color Sensor:", sensorsSystem.getColorInfo());
   }
 
   public void resetDriveEncoders() {

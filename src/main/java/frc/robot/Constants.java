@@ -90,7 +90,7 @@ public final class Constants {
         public static int PID_ID = 0;
         public static int TIMEOUT_MS = 30;
         public static PIDGains PID_GAINS = new PIDGains(0.33, 0.001, 20, 1023.0/7200.0,  300,  1.00);
-        public static int SHOOTER_RPM = 6000;
+        public static int SHOOTER_VELOCITY = 18000;
     }
 
 }

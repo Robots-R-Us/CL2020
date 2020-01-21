@@ -50,7 +50,7 @@ public class Shooter extends SubsystemBase {
     }
 
     public void setVelocity() {
-        shooterMotor.set(ControlMode.Velocity, Constants.Shooter.SHOOTER_RPM);
+        shooterMotor.set(ControlMode.Velocity, Constants.Shooter.SHOOTER_VELOCITY);
     }
 
     public void stop() {
